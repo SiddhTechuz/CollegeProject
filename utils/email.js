@@ -6,7 +6,7 @@ module.exports = class Email {
         this.to = user.email;
         this.firsName = user.name.split(' ')[0];
         this.url = url;
-        this.from = 'Jonas Schmedtmann <hello@jonas.io>'
+        this.from = 'FixIt Friend <admin@fixItFriend.io>'
     }
 
     newTransport() {
@@ -18,10 +18,14 @@ module.exports = class Email {
         else {
             return nodemailer.createTransport({
                 host: "sandbox.smtp.mailtrap.io",
-                port: 587,
+                port: process.env.EMAIL_PORT,
+                secure: false,
                 auth: {
                     user: process.env.EMAIL_USERNAME,
                     pass: process.env.EMAIL_PASSWORD
+                },
+                tls: {
+                    ciphers: 'SSLv3'
                 }
             })
         }
@@ -51,6 +55,25 @@ module.exports = class Email {
     }
     async sendWelcome() {
         await this.send('welcome', 'Welcome to the Natours Family')
+    }
+    async sendReminder(taskName, taskType, taskDate) {
+        console.log('inside reminder classs');
+        const html = pug.renderFile(`${__dirname}/../views/email/reminder.pug`, {
+            taskName: this.firsName,
+            taskType,
+            taskDate
+        });
+
+        const mailOptions = {
+            from: this.from,
+            to: 'hello@example.com',
+            subject: "Reminder for Task",
+            html,
+            text: htmlToText.convert(html)
+            //html
+        }
+        await this.newTransport().sendMail(mailOptions)
+        console.log('mail sent');
     }
     async sendPasswordReset() {
         console.log('inside password reset email');

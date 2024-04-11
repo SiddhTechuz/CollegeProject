@@ -3,7 +3,7 @@ const signupForm = document.querySelector('.form--signup')
 const logOutBtn = document.querySelector('.nav__el--logout')
 const userDataForm = document.querySelector('.form-user-data')
 const userPasswordForm = document.querySelector('.form-user-password')
-
+const taskForm = document.querySelector('.form--task')
 const hideAlert = () => {
   const el = document.querySelector('.alert');
   if (el) el.parentElement.removeChild(el);
@@ -157,3 +157,33 @@ if (signupForm) {
       (name, email, password, passwordConfirm)
   })
 }
+
+const deleteUserFront = async (userId) => {
+  console.log(userId);
+  try {
+    const res = await axios(`http://localhost:3000/api/v1/users/${userId}`, {
+      method: 'DELETE',
+    })
+    if (res.data.status === 'success') {
+      showAlert('success', 'Deleted  user successfully!');
+    }
+  }
+  catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+}
+const deleteReviewFront = async (reviewId) => {
+  console.log(reviewId);
+  try {
+    const res = await axios(`http://localhost:3000/api/v1/reviews/${reviewId}`, {
+      method: 'DELETE',
+    })
+    if (res.data.status === 'success') {
+      showAlert('success', 'Deleted  user successfully!');
+    }
+  }
+  catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+}
+

@@ -1,0 +1,56 @@
+extends base
+
+block content
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Register Your Service
+            form.form(action='/api/v1/register/newRegister' method='POST')
+                .form__group
+                    label.form__label(for='name') Owner Name
+                    input#ownername.form__input(type='text', placeholder='First Last', required, name='name')
+                .form__group
+                    label.form__label(for='email') Company's email
+                    input#owneremail.form__input(type='email', placeholder='you@example.com', required,name='email')
+                .form__group
+                    label.form__label(for='service') Type of Service
+                    select#ownerservice.form__select(name='service')
+                        option(value='basic') Basic Home Inspection
+                        option(value='deep-cleaning') Deep Cleaning Service
+                        option(value='landscaping') Landscaping 
+                        option(value='repair-maintenance') Home Repair 
+                        option(value='pest-control') Pest Control Services
+                        option(value='plumbing') Plumbing Services
+                        option(value='electrical') Electrical Services
+                        option(value='painting') Painting Services
+                        option(value='hvac') HVAC Services
+                        option(value='roofing') Roofing Services
+                        option(value='flooring') Flooring Services
+                        option(value='carpentry') Carpentry Services
+                .form__group
+                    label.form__label(for='location') Location
+                    select#ownerlocation.form__select(name='location')
+                        option(value='mumbai') Mumbai
+                        option(value='delhi') Delhi
+                        option(value='bangalore') Bangalore
+                        option(value='hyderabad') Hyderabad
+                        option(value='ahmedabad') Ahmedabad
+                        option(value='chennai') Chennai
+                        option(value='kolkata') Kolkata
+                        option(value='surat') Surat
+                        option(value='pune') Pune
+                        option(value='jaipur') Jaipur
+                        option(value='lucknow') Lucknow
+                        option(value='kanpur') Kanpur
+                        option(value='nagpur') Nagpur
+                        option(value='visakhapatnam') Visakhapatnam
+                        option(value='indore') Indore
+                        option(value='thane') Thane
+                        option(value='bhopal') Bhopal
+                        option(value='patna') Patna
+                        option(value='vadodara') Vadodara
+                        option(value='ghaziabad') Ghaziabad
+                .form__group
+                    label.form__label(for='phone') Phone Number (+91)
+                    input#ownerphone.form__input(type='text', placeholder='Enter your phone number', pattern='[0-9]{10}', title='Please enter a 10-digit Indian phone number', required,name='phone')
+                .form__group
+                    button.btn.btn--green Register Here

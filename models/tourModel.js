@@ -15,17 +15,6 @@ const tourSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'A tour must have duration']
     },
-    maxGroupSize: {
-        type: Number,
-        required: [true, 'A tour must have group size']
-    },
-    difficulty: {
-        type: String,
-        required: [true, 'A tour must have difficulty'],
-        enum: {
-            values: ['easy', 'medium', 'difficult'], message: 'Enter a valid difficulty'
-        }
-    },
     ratingsAverage: {
         type: Number,
         default: 4.5,
@@ -50,7 +39,6 @@ const tourSchema = new mongoose.Schema({
             }
         },
         message: 'Discount price ({VALUE }) cannot be more than the actual price'
-
     },
     summary: {
         type: String,
@@ -63,7 +51,7 @@ const tourSchema = new mongoose.Schema({
     },
     imageCover: {
         type: String,
-        required: [true, 'A tour must have a cover image']
+        // required: [true, 'A tour must have a cover image']
     },
     images: [String],
     createdAt: {
@@ -72,10 +60,6 @@ const tourSchema = new mongoose.Schema({
         select: false
     },
     startDates: [Date],
-    secretTour: {
-        type: Boolean,
-        default: false
-    },
     startLocation: {
         // GeoJSON
         type: {

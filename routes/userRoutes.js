@@ -36,5 +36,6 @@ router
     .patch(userController.updateUser)
     .delete(userController.deleteUser)
 
+// router.get('/deleteUser/:id', userController.deleteUser)
 
 module.exports = router;

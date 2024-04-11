@@ -103,59 +103,13 @@ exports.getToursStats = catchAsync(async (req, res, next) => {
             $sort: { avgPrice: 1 },
         }
     ])
-    console.log(stats);
     res.status(200).json({
         status: 'success',
         data: {
             stats: stats
         }
     })
-
-
 })
-exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
-    const year = req.params.year * 1;
-    const plan = await Tour.aggregate([
-        {
-            $unwind: '$startDates'
-        },
-        {
-            $match: {
-                startDates: {
-                    $gte: new Date('$(year)-01-01'),
-                    $lte: new Date('$(year)-12-31')
-                }
-            }
-        },
-        {
-            $group: {
-                __id: { $month: '$startDates' },
-                numTourStarts: { $sum: 1 },
-                tours: { $push: '$name' }
-            }
-        },
-        {
-            $addField: { month: '$_id' }
-        },
-        {
-            $project: {
-                _id: 0,
-            }
-        },
-        {
-            $sort: { numTourStarts: -1 }
-        }
-    ]);
-    res.status(200).json({
-        status: 'success',
-        data: {
-            plan
-        }
-    })
-
-
-})
-
 exports.getToursWithin = catchAsync(async (req, res, next) => {
     const { distance, latlng, unit } = req.params;
     const [lat, lng] = latlng.split(',');
@@ -184,6 +138,49 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
         }
     });
 });
+exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
+    const year = req.params.year * 1;
+    const plan = await Tour.aggregate([
+        {
+            $unwind: '$startDates'  // array divide in single unit
+        },
+        {
+            $match: {
+                startDates: {
+                    $gte: new Date(`${year}-01-01`),
+                    $lte: new Date(`${year}-12-31`)
+                }
+            }
+        },
+        {
+            $group: {
+                _id: { $month: '$startDates' },
+                numTourStarts: { $sum: 1 },
+                name: { $push: '$name' }
+            }
+        },
+        {
+            $addFields: { month: '$_id' } // This line was previously $addField
+        },
+        {
+            $project: { _id: 0 } // id not visible
+        },
+        {
+            $sort: { numTourStarts: -1 } // descending order
+        },
+        {
+            $limit: 12
+        }
+    ]);
+    res.status(200).json({
+        status: "success",
+        data: {
+            plan
+        }
+    });
+});
+
+
 exports.getDistances = catchAsync(async (req, res, next) => {
     const { latlng, unit } = req.params;
     const [lat, lng] = latlng.split(',');

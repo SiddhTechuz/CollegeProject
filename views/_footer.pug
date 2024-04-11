@@ -1,10 +1,57 @@
-footer.footer 
-    .footer__logo 
-        img(src='/img/logo-green.png' alt='Natour logo')
-    ul.footer_nav 
-        li:a(href='#') About Us
-        li:a(href='#') Download Application
-        li:a(href='#') Become a guide
-        li:a(href='#') Careers 
-        li:a(href='#') Contact
-    p.footer__copyright &copy; by Siddh Seth
+footer
+    .container
+        .footer-box
+            .row
+                .col-md
+                    .nav-logo
+                        a(href="#")
+                            img(src="/img/home-brown.png", alt="")
+                    p Copyright © 2024 Trechios. 
+                        br
+                        | All rights reserved
+                    .social-media
+                        .logo
+                            a(href="#insta")
+                                img(src="/img/insta.png", alt="")
+                        .logo
+                            a(href="#")
+                                img(src="/img/ball.png", alt="")
+                        .logo
+                            a(href="#")
+                                img(src="/img/twitter.png", alt="")
+                        .logo
+                            a(href="#")
+                                img(src="/img/yt.png", alt="")
+                .col-md-6
+                    .col-md-4
+                        h4 Company
+                        ul
+                            li
+                                a(href="") About Us
+                            li
+                                a(href="") Blog
+                            li
+                                a(href="") Contact Us
+                            li
+                                a(href="") Pricing
+                            li
+                                a(href="") Testimonials
+                    .col-md-4
+                        h4 Support
+                        ul
+                            li
+                                a(href="") Help Center
+                            li
+                                a(href="") Tesms of Service
+                            li
+                                a(href="") Legal
+                            li
+                                a(href="") Privacy Policy
+                            li
+                                a(href="") Status
+                    .col-md-4
+                        h4 Stay up to Date
+                        .email
+                            input(type="text", class="email-input", placeholder="Your Email address")
+                            a(href="#")
+                                img(src="/img/send.png", class="send")

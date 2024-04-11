@@ -3,12 +3,13 @@ const path = require('path')
 const morgan = require('morgan')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/errorController')
+const schedule = require('node-schedule')
 // const tourRouter = require('./routes/tourRoutes')
 // const userRouter = require('./routes/userRoutes')
 // const reviewRouter = require('./routes/reviewRoutes')
 const viewRouter = require('./routes/viewRoutes')
 const routes = require('./routes/index')
-
+const bodyParser = require('body-parser')
 const app = express();
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
@@ -16,7 +17,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean')
 const hpp = require('hpp')
 const cookieParser = require('cookie-parser')
-
+const findTask = require('./utils/reminder')
 //middleware
 app.use(morgan('dev'))
 
@@ -43,6 +44,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 //body parser ,reading data from body into req.body
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser())
 
@@ -59,9 +61,15 @@ app.use(hpp({
 
 }))
 app.use(function (req, res, next) {
-    res.setHeader('Content-Security-Policy', "script-src https://cdnjs.cloudflare.com https://api.mapbox.com https://js.stripe.com https://cdn.jsdelivr.net 'self' blob:");
+    res.setHeader('Content-Security-Policy', "script-src https://cdnjs.cloudflare.com https://api.mapbox.com https://js.stripe.com https://cdn.jsdelivr.net 'self' 'unsafe-inline' blob:");
     next();
 })
+
+schedule.scheduleJob('*/1 * * * *', () => {
+    console.log('schedule');
+    setImmediate(findTask)
+});
+
 
 //routes
 app.use('/', viewRouter)

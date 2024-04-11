@@ -1,0 +1,12 @@
+extends base
+
+block content
+    main.main
+        .card
+            .card__details
+                h4.card__sub-heading= `Total no of services added: ${send[0].numTours}`
+                h4.card__sub-heading= `Total no of ratings by yser: ${send[0].numRatings}`
+                h4.card__sub-heading= `Avg rating of all services : ${send[0].avgRating}`
+                h4.card__sub-heading= `Avg Price of all services : ${send[0].avgPrice}`
+                h4.card__sub-heading= `Min Price : ${send[0].minPrice}`
+                h4.card__sub-heading= `Max Price: ${send[0].maxPrice}`

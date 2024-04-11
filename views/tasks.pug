@@ -1,0 +1,37 @@
+extends base
+
+block content
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Add Your Task
+            form.form(action='/add' method='POST')
+                .form__group
+                    label.form__label(for='name') Task Name
+                    input#taskname.form__input(type='text', placeholder='Task Name', required, name='name')
+                .form__group
+                    label.form__label(for='service') Task Type
+                    select#taskservice.form__select(name='service')
+                        option(value='basic') Basic Home Inspection
+                        option(value='deep-cleaning') Deep Cleaning Service
+                        option(value='landscaping') Landscaping 
+                        option(value='repair-maintenance') Home Repair 
+                        option(value='pest-control') Pest Control Services
+                        option(value='plumbing') Plumbing Services
+                        option(value='electrical') Electrical Services
+                        option(value='painting') Painting Services
+                        option(value='hvac') HVAC Services
+                        option(value='roofing') Roofing Services
+                        option(value='flooring') Flooring Services
+                        option(value='carpentry') Carpentry Services
+                .form__group
+                    label.form__label(for='date') Task Date
+                    input#taskDate.form__input(type='date', placeholder='Enter task date', required, name='date')
+                .form__group
+                    label.form__label(for='time') Task Time
+                    input#taskTime.form__input(type='time', placeholder='Enter task time', required, name='time')
+                .form__group
+                    input(type='hidden', name='userId', value=`${user._id}`)
+                .form__group
+                    input(type='hidden', name='userEmail', value=`${user.email}`)
+                .form__group
+                    button.btn.btn--green Add Task Reminder 

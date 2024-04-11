@@ -32,7 +32,7 @@ block content
 
         .heading-box
             h1.heading-primary
-                span= `${tour.name} tour`
+                span= `${tour.name} service`
             .heading-box__group
                 .heading-box__detail
                     svg.heading-box__icon
@@ -57,7 +57,7 @@ block content
                     +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'star')       
 
                 .overview-box__group
-                    h2.heading-secondary.ma-bt-lg Your tour guides
+                    h2.heading-secondary.ma-bt-lg Your Service Provider
 
                     each guide in tour.guides
                         .overview-box__detail
@@ -96,8 +96,8 @@ block content
             img.cta__img.cta__img--2(src='/img/tour-5-1.jpg', alt='')
             .cta__content
                 h2.heading-secondary What are you waiting for?
-                p.cta__text 10 days. 1 adventure. Infinite memories. Make it yours today!
+                p.cta__text Professional workers,On your door step
                 if user
-                    button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
+                    button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book Service now!
                 else
-                    button.btn.btn--green.span-all-rows(href='/login') Log In to Book Tour
+                    a.btn.btn--green.span-all-rows(href='/login') Log In to Book Tour

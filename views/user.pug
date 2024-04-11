@@ -1,0 +1,17 @@
+extends base
+
+block content
+    main.main
+        .card-container
+            each user in users
+                .card
+                    .card__details
+                        h2=`${user.name}`
+                        img.reviews__avatar-img(src=`/img/users/${user.photo}`, alt=`${user.name}`)
+                        p.card__text= user.email
+                    .card__footer
+                        p
+                            span.card__footer-value= `${user.role}`
+                            | 
+                            span.card__footer-text role
+                        button.btn.btn--green.btn--small.deletebtn(data-user-id=`${user.id}`,onclick=`deleteUserFront('${user.id}')`) Delete

@@ -1,0 +1,16 @@
+extends baseEmail
+block content
+    p Reminder for Task :#{firsName},
+    p Scheduled for Date: #{taskDate},
+    p For :#{taskType}
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+        tbody
+            tr
+                td(align='left')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`/login`, target='_blank') Task Details 
+    p If you need any help with booking your service, please visit the website
+    p - The Trechios...  

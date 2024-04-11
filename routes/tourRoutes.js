@@ -24,7 +24,7 @@ router
 
 router.route('/tour-stats').get(tourController.getToursStats);
 router.route('/monthly-plan/:year')
-    .get(authController.protect, authController.restrictTo('admin', 'lead-guide', 'guide'), tourController.getMonthlyPlan)
+    .get(tourController.getMonthlyPlan)
 
 router.route('/tours-within/:distance/center/:latlng/unit/:unit').get(tourController.getToursWithin)
 //tours-distance?distance=223%center=-40,45&unit=mi

@@ -1,0 +1,17 @@
+extends base
+
+block content
+    main.main
+        .card-container
+            each review in reviews
+                .card
+                    .card__header
+                        h3.card__sub-heading=review.user.name
+                        h3.card__sub-heading=review.review
+                        p.card__sub-heading=`Created At :${review.createdAt}`
+                    .card__details
+                        .card__ratings
+                            span.card__footer-text= `rating (${review.rating})`
+                    .card__footer
+                        button.btn.btn--green.btn--small.deletebtn(onclick=`deleteReviewFront('${review.id}')`) Delete Review
+                        
