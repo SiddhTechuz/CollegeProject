@@ -30,7 +30,7 @@ block content
                     label.form__label(for='time') Task Time
                     input#taskTime.form__input(type='time', placeholder='Enter task time', required, name='time')
                 .form__group
-                    input(type='hidden', name='userId', value=`${user._id}`)
+                    input(type='hidden', name='userId', value=`${user.corousel}`)
                 .form__group
                     input(type='hidden', name='userEmail', value=`${user.email}`)
                 .form__group

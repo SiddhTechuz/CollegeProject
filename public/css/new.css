@@ -13,7 +13,7 @@ header {
   display: table;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 30px 20px;
 }
 li:hover {
   color: #4caf4f;
@@ -169,6 +169,9 @@ li:hover {
   color: #89939e;
   margin-top: 20px;
 }
+.corousel-image img {
+  max-width: 400px;
+}
 .corousel-content .button-style {
   width: 91px;
   height: 40px;
@@ -246,24 +249,27 @@ li:hover {
 .community-desc .card {
   box-shadow: 0px 2px 4px 0px #abbed133;
   text-align: center;
-  max-width: 230px;
+  max-width: 400px;
+  justify-content: space-between;
   /* margin: 0 auto; */
 }
 
 .card h3 {
-  margin-top: 20px;
   font-family: Inter;
   font-size: 28px;
   font-weight: 700;
   line-height: 36px;
   color: #4d4d4d;
+  /* padding: 20px 0 0 0; */
+  /* padding: 0 4px 0 4px; */
 }
 .card p {
   font-family: Inter;
   font-size: 14px;
   font-weight: 400;
-  line-height: 20px;
+  /* line-height: 20px; */
   color: #89939e;
+  /* padding: 20px 0 20px 0; */
 }
 /* 
 unseen */
