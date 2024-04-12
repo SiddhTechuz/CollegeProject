@@ -136,6 +136,27 @@ exports.updateDetails = catchAsync(async (req, res, next) => {
 })
 
 exports.getStats = async (req, res, next) => {
+    const results = await Booking.aggregate([
+        {
+            $lookup: {
+                from: 'tours', // The collection to join with
+                localField: 'tour', // The field from the input documents
+                foreignField: '_id', // The field from the documents of the "from" collection
+                as: 'tourDetails' // The output array field
+            }
+        },
+        {
+            $unwind: '$tourDetails' // Deconstruct the tourDetails array created by $lookup
+        },
+        {
+            $group: {
+                _id: '$tourDetails', // Group by the tourDetails field
+                totalBookings: { $sum: 1 }, // Calculate the total number of bookings for each tour
+                totalRevenue: { $sum: '$price' }, // Calculate the total revenue for each tour
+                bookings: { $push: '$$ROOT' } // Push all booking documents into an array
+            }
+        }
+    ]);
 
     const tourstats = await axios(`http://localhost:3000/api/v1/tours/tour-stats`, {
         method: 'GET',
@@ -143,7 +164,8 @@ exports.getStats = async (req, res, next) => {
     const send = tourstats.data.data.stats
     res.status(200).render('stats', {
         title: 'tour Stats',
-        send
+        send,
+        results
     })
 
     const monthData = await axios('http://localhost:3000/api/v1/tours/monthly-plan/2021', {
@@ -190,3 +212,58 @@ exports.addReminder = catchAsync(async (req, res, next) => {
     });
     await newTask.save()
 })
+
+exports.getmanagetours = async (req, res, next) => {
+    const results = await Booking.aggregate([
+        {
+            $lookup: {
+                from: 'tours', // The collection to join with
+                localField: 'tour', // The field from the input documents
+                foreignField: '_id', // The field from the documents of the "from" collection
+                as: 'tourDetails' // The output array field
+            }
+        },
+        {
+            $unwind: '$tourDetails' // Deconstruct the tourDetails array created by $lookup
+        },
+        {
+            $group: {
+                _id: '$tourDetails', // Group by the tourDetails field
+                totalBookings: { $sum: 1 }, // Calculate the total number of bookings for each tour
+                totalRevenue: { $sum: '$price' }, // Calculate the total revenue for each tour
+                bookings: { $push: '$$ROOT' } // Push all booking documents into an array
+            }
+        }
+    ]);
+    console.log(results);
+    res.status(200).render('tour-state', {
+        title: 'Manage Booking',
+        results
+    })
+}
+exports.getManageBooking = catchAsync(async (req, res, next) => {
+    const tours = await Tour.find()
+    //   const result = await Booking.aggregate([
+    //     {
+    //       $group: {
+    //         _id: '$tour', // Group by the tour field
+    //         totalBookings: { $sum: 1 }, // Calculate the total number of bookings for each tour
+    //         totalRevenue: { $sum: '$price' }, // Calculate the total revenue for each tour
+    //         bookings: { $push: '$$ROOT' } // Push all booking documents into an array
+    //       }
+    //     }
+    //   ])
+    // console.log(tours)
+    res.status(200).render('managebooking', {
+        title: 'Manage Booking',
+        tours
+    })
+})
+exports.userbooktour = async (req, res, next) => {
+    const bookings = await Booking.find({ tour: req.params.tourId })
+    console.log(bookings)
+    res.status(200).render('manage-booked-user', {
+        title: 'Booking',
+        bookings
+    })
+}

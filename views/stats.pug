@@ -10,3 +10,17 @@ block content
                 h4.card__sub-heading= `Avg Price of all services : ${send[0].avgPrice}`
                 h4.card__sub-heading= `Min Price : ${send[0].minPrice}`
                 h4.card__sub-heading= `Max Price: ${send[0].maxPrice}`
+
+    main.main
+        .card-container
+            each result in results
+                .card
+                    .card__header
+                        .card__picture
+                            .card__picture-overlay &nbsp;
+                            img.card__picture-img(src=`/img/tours/${result._id.imageCover}`, alt=`${result._id.name}`)
+                        h3.heading-tertirary
+                            span= result._id.name
+                    
+                    h1 total bookings : #{result.totalBookings}
+                    h1 total revenue : #{result.totalRevenue}

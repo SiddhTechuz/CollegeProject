@@ -1181,6 +1181,17 @@ body {
 .card__ratings {
   grid-row: 2 / 3;
 }
+.manageusers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.center {
+  text-align: center;
+}
 .card .btn-small,
 .card .btn {
   grid-row: 1 / 3;

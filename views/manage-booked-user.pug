@@ -1,0 +1,23 @@
+extends base
+block content
+    main.main
+        .card-container
+            each booking in bookings
+                .cardreviews__card
+
+                    h1 Tour Name : #{booking.tour.name}
+                    br
+                    h2 User:
+                        .reviews__avatar
+                            img.reviews__avatar-img(src=`/img/users/${booking.user.photo}`, alt=`${booking.user.name}`)
+                            h6.reviews__user= booking.user.name
+                    //- .user-details
+                    //-   //- img(src=booking.user.photo, alt=booking.user.name)
+                    //-   img.reviews__avatar-img(src=`/img/users/${booking.user.photo}`, alt=`${booking.user.name}`)
+                    //-   p= booking.user.name
+                    h2 Booking Price: #{booking.price}
+                    br
+                    - const date = new Date(booking.createdAt)
+                    h2 Booked At: #{date.toDateString()}
+                    br
+                    button.btn.btn--green.btn--small.bookingdeletbtn(data-booking-id=`${booking.id}`,onclick=`deletbooking('${booking.id}')`) Delete Booking

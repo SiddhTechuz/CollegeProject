@@ -1,17 +1,21 @@
 extends base
 
+
+mixin reviewCard(tour_review)
+    .reviews__card
+        .reviews__avatar
+            img.reviews__avatar-img(src=`/img/users/${tour_review.user.photo}`, alt=`${tour_review.user.name}`)
+            h6.reviews__user= tour_review.user.name
+        p.reviews__text= tour_review.review
+        .reviews__rating
+            each star in [1, 2, 3, 4, 5]
+                svg.reviews__star(class=`reviews__star--${tour_review.rating >= star ? 'active' : 'inactive'}`)
+                    use(xlink:href='/img/icons.svg#icon-star')
+        br
+        button.btn.btn--green.btn--small.deletebtn(onclick=`deleteReviewFront('${tour_review._id}')`) Delete Review
+
 block content
-    main.main
-        .card-container
-            each review in reviews
-                .card
-                    .card__header
-                        h3.card__sub-heading=review.user.name
-                        h3.card__sub-heading=review.review
-                        p.card__sub-heading=`Created At :${review.createdAt}`
-                    .card__details
-                        .card__ratings
-                            span.card__footer-text= `rating (${review.rating})`
-                    .card__footer
-                        button.btn.btn--green.btn--small.deletebtn(onclick=`deleteReviewFront('${review.id}')`) Delete Review
-                        
+    section
+    .manageusers
+        each tour_review in reviews
+            +reviewCard(tour_review)

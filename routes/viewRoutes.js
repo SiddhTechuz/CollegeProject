@@ -23,11 +23,14 @@ router.get('/provide/register', viewController.getRegister)
 router.get('/add-task', authController.isLoggedIn, authController.protect, viewController.addTask)
 
 
-router.get('/manage-reviews', viewController.getReviews)
-router.get('/review/:tourId', viewController.getTourReview)
+router.get('/manage-reviews', authController.isLoggedIn, viewController.getReviews)
+router.get('/review/:tourId', authController.isLoggedIn, viewController.getTourReview)
 
-router.get('/stats', viewController.getStats)
+router.get('/stats', authController.isLoggedIn, viewController.getStats)
 router.get('/tour/update/:slug', viewController.updateDetails)
+
+router.get('/manage-bookings', authController.protect, viewController.getManageBooking)
+router.get('/booking/:tourId', authController.protect, viewController.userbooktour)
 
 router.post('/add', viewController.addReminder)
 router.post('/submit-user-data', authController.protect,

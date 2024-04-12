@@ -36,7 +36,6 @@ module.exports = findTask = async () => {
         time: currentTimeString, // Assuming time is in HH:MM format // Flag to check if reminder has been sent already
     });
     // console.log('hello');
-    console.log(matchingTasks);
     if (matchingTasks.length > 0) {
         matchingTasks.map(async (task) => {
             await new Email(task, null).sendReminder(task.name, task.service, task.date)

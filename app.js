@@ -66,7 +66,6 @@ app.use(function (req, res, next) {
 })
 
 schedule.scheduleJob('*/1 * * * *', () => {
-    console.log('schedule');
     setImmediate(findTask)
 });
 

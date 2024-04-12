@@ -9,11 +9,5 @@ block content
                         h3.card__sub-heading=tour.name
                         p.card__sub-heading=`Ratings :${tour.ratingsQuantity}`
                         p.card__sub-heading=`Ratings Average :${tour.ratingsAverage}`
-
-                    .card__details
-                        .card__ratings
-                            span.card__footer-value= tour.ratingsAverage
-                            | 
-                            span.card__footer-text= `rating (${tour.ratingsQuantity})`
                     .card__footer
                         a.btn.btn--green.btn--small(href=`/review/${tour.id}`) Show All Reviews
